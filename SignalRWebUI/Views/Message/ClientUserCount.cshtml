@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+
+@await Component.InvokeAsync("_UILayoutHeadComponentPartial")
+
+<body class="sub_page">
+
+    @await Component.InvokeAsync("_MenuNavbarComponentPartial")
+
+    <section class="food_section layout_padding">
+        <div class="container">
+
+
+            <script type="text/javascript">
+
+                $(document).ready(() => {
+
+                    var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7186/SignalRHub").build();
+                    $("#connstatus").text(connection.state);
+                    connection.start().then(() => {
+                        $("#connstatus").text(connection.state);
+                    }).catch((err) => { console.log(err) });
+
+
+                    connection.on("ReceiveClientCount", (clientCount) => {
+                        $("#clientCountValue").text(clientCount);
+                    });
+
+                });
+
+            </script>
+
+            <h4 class="page-title">Anlık Client Sayısı: <strong id="clientCountValue"></strong></h4>
+
+
+
+        </div>
+
+    </section>
+
+    @await Component.InvokeAsync("_UILayoutFooterComponentPartial")
+
+    <script src="~/feane-1.0.0/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap js -->
+    <script src="~/feane-1.0.0/js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+    <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+    <!-- custom js -->
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.8/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+
+</body>
+
+</html>

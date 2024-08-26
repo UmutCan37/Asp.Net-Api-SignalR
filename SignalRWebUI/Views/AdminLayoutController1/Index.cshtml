@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+@await Component.InvokeAsync("_LayoutHeaderPartialComponent")
+<body>
+	<div class="wrapper">
+		@await Component.InvokeAsync("_LayoutNavbarComponentPartial")
+		@await Component.InvokeAsync("_LayoutSideBarComponentPartial")
+		
+			<div class="main-panel">
+				@RenderBody()
+		</div>
+			@await Component.InvokeAsync("_LayoutFooterComponentPartial")
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+
+</body>
+
+</html>
+
+
